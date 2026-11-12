@@ -1,0 +1,456 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SEMERU | Volcanic Monitoring System</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+    <div class="brand">
+        <div class="brand-icon">🌋</div>
+        <div>
+            <h2>SEMERU</h2>
+            <small>VOLCANIC MONITORING</small>
+        </div>
+    </div>
+
+    <div class="menu-label">MENU UTAMA</div>
+
+    <a href="#dashboard" class="menu active">▦ Dashboard</a>
+    <a href="#monitoring" class="menu">◉ Monitoring Gas</a>
+    <a href="#prediction" class="menu">⌁ Fuzzy Prediction</a>
+    <a href="#alerts" class="menu">⚠ Peringatan Dini</a>
+    <a href="#history" class="menu">▤ Riwayat Data</a>
+
+    <div class="sidebar-bottom">
+
+        <div class="device-card">
+            <div class="device-title">
+                <span class="online-dot"></span>
+                DEVICE STATUS
+            </div>
+
+            <h3 id="connectionStatus">SIMULATION MODE</h3>
+            <small id="lastUpdate">Menunggu data...</small>
+        </div>
+
+        <div class="sidebar-footer">
+            SEMERU Monitoring System<br>
+            Version 2.0.0
+        </div>
+
+    </div>
+
+</aside>
+
+
+<!-- MAIN CONTENT -->
+<main class="main-content" id="dashboard">
+
+    <!-- HEADER -->
+    <header class="topbar">
+
+        <div>
+            <div class="breadcrumb">MONITORING / DASHBOARD</div>
+
+            <h1>Volcanic Monitoring Dashboard</h1>
+
+            <p>
+                Sistem Elektronik Monitoring Erupsi Berbasis IoT Multigas
+                dan Temperatur
+            </p>
+        </div>
+
+        <div class="top-right">
+
+            <button class="theme-toggle" id="themeToggle"
+                onclick="toggleTheme()">
+
+                <span id="themeIcon">🌙</span>
+                <span id="themeLabel">Dark Mode</span>
+
+            </button>
+
+            <div class="live-indicator">
+                <span></span> LIVE SIMULATION
+            </div>
+
+            <div class="clock" id="clock">00:00:00</div>
+
+        </div>
+
+    </header>
+
+
+    <!-- SYSTEM STATUS -->
+    <section class="status-banner" id="statusBanner">
+
+        <div class="status-symbol">✓</div>
+
+        <div>
+            <strong id="overallStatus">KONDISI NORMAL</strong>
+
+            <p id="statusDescription">
+                Seluruh parameter berada di bawah ambang simulasi.
+            </p>
+        </div>
+
+        <div class="status-time" id="statusTime">
+            SYSTEM ACTIVE
+        </div>
+
+    </section>
+
+
+    <!-- SENSOR MONITORING -->
+    <section class="section-heading" id="monitoring">
+
+        <div>
+            <h2>Parameter Monitoring</h2>
+            <p>Pemantauan konsentrasi gas dan temperatur lingkungan</p>
+        </div>
+
+        <span class="date-label" id="currentDate">--</span>
+
+    </section>
+
+
+    <!-- SENSOR CARDS -->
+    <section class="sensor-grid">
+
+        <div class="sensor-card">
+
+            <div class="sensor-header">
+                <span class="sensor-icon purple">H₂S</span>
+                <span class="sensor-status" id="statusH2S">NORMAL</span>
+            </div>
+
+            <p class="sensor-name">Hydrogen Sulfide</p>
+
+            <div class="sensor-value">
+                <strong id="valueH2S">2.40</strong>
+                <span>ppm</span>
+            </div>
+
+            <div class="sensor-footer">
+                <span>Gas Hidrogen Sulfida</span>
+                <span>SENSOR 01</span>
+            </div>
+
+        </div>
+
+
+        <div class="sensor-card">
+
+            <div class="sensor-header">
+                <span class="sensor-icon orange">SO₂</span>
+                <span class="sensor-status" id="statusSO2">NORMAL</span>
+            </div>
+
+            <p class="sensor-name">Sulfur Dioxide</p>
+
+            <div class="sensor-value">
+                <strong id="valueSO2">0.80</strong>
+                <span>ppm</span>
+            </div>
+
+            <div class="sensor-footer">
+                <span>Gas Sulfur Dioksida</span>
+                <span>SENSOR 02</span>
+            </div>
+
+        </div>
+
+
+        <div class="sensor-card">
+
+            <div class="sensor-header">
+                <span class="sensor-icon blue">CO₂</span>
+                <span class="sensor-status" id="statusCO2">NORMAL</span>
+            </div>
+
+            <p class="sensor-name">Carbon Dioxide</p>
+
+            <div class="sensor-value">
+                <strong id="valueCO2">420</strong>
+                <span>ppm</span>
+            </div>
+
+            <div class="sensor-footer">
+                <span>Gas Karbon Dioksida</span>
+                <span>SENSOR 03</span>
+            </div>
+
+        </div>
+
+
+        <div class="sensor-card">
+
+            <div class="sensor-header">
+                <span class="sensor-icon red">℃</span>
+                <span class="sensor-status" id="statusTEMP">NORMAL</span>
+            </div>
+
+            <p class="sensor-name">Environmental Temperature</p>
+
+            <div class="sensor-value">
+                <strong id="valueTEMP">28.5</strong>
+                <span>°C</span>
+            </div>
+
+            <div class="sensor-footer">
+                <span>Temperatur Lingkungan</span>
+                <span>SENSOR 04</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CHART -->
+    <section class="section-heading">
+
+        <div>
+            <h2>Real-Time Data Visualization</h2>
+            <p>Grafik perubahan parameter berdasarkan waktu</p>
+        </div>
+
+        <span class="chart-live">● SIMULATED DATA</span>
+
+    </section>
+
+
+    <section class="chart-grid">
+
+        <div class="chart-card">
+            <div class="chart-header">
+                <div>
+                    <h3>Gas H₂S Monitoring</h3>
+                    <p>Hydrogen Sulfide Concentration (ppm)</p>
+                </div>
+                <span class="chart-unit">PPM</span>
+            </div>
+
+            <canvas id="chartH2S"></canvas>
+        </div>
+
+
+        <div class="chart-card">
+            <div class="chart-header">
+                <div>
+                    <h3>Gas SO₂ Monitoring</h3>
+                    <p>Sulfur Dioxide Concentration (ppm)</p>
+                </div>
+                <span class="chart-unit">PPM</span>
+            </div>
+
+            <canvas id="chartSO2"></canvas>
+        </div>
+
+
+        <div class="chart-card">
+            <div class="chart-header">
+                <div>
+                    <h3>Gas CO₂ Monitoring</h3>
+                    <p>Carbon Dioxide Concentration (ppm)</p>
+                </div>
+                <span class="chart-unit">PPM</span>
+            </div>
+
+            <canvas id="chartCO2"></canvas>
+        </div>
+
+
+        <div class="chart-card">
+            <div class="chart-header">
+                <div>
+                    <h3>Temperature Monitoring</h3>
+                    <p>Environmental Temperature (°C)</p>
+                </div>
+                <span class="chart-unit">°C</span>
+            </div>
+
+            <canvas id="chartTEMP"></canvas>
+        </div>
+
+    </section>
+
+
+    <!-- FUZZY PREDICTION -->
+    <section class="section-heading" id="prediction">
+
+        <div>
+            <h2>Fuzzy Logic Prediction</h2>
+            <p>Analisis estimasi kondisi berdasarkan pembacaan sensor</p>
+        </div>
+
+        <span class="chart-live">● FUZZY MAMDANI</span>
+
+    </section>
+
+
+    <section class="fuzzy-grid">
+
+        <div class="fuzzy-main">
+
+            <div class="fuzzy-title">
+                <div>
+                    <h3>Predicted Environmental Condition</h3>
+                    <p>Hasil klasifikasi fuzzy logic</p>
+                </div>
+
+                <span class="fuzzy-icon">⌁</span>
+            </div>
+
+            <div class="fuzzy-result" id="fuzzyResult">
+                AMAN
+            </div>
+
+            <div class="fuzzy-score">
+                <span>Risk Score</span>
+                <strong id="fuzzyScore">0</strong>
+                <span>/ 100</span>
+            </div>
+
+            <div class="risk-progress">
+                <div id="riskBar"></div>
+            </div>
+
+            <p id="fuzzyDescription">
+                Kondisi relatif aman berdasarkan konfigurasi simulasi.
+            </p>
+
+        </div>
+
+
+        <div class="fuzzy-detail">
+
+            <h3>Membership Degree</h3>
+
+            <p>Derajat keanggotaan hasil analisis fuzzy</p>
+
+
+            <div class="membership">
+
+                <div>
+                    <span>Aman</span>
+                    <strong id="membershipSafe">100%</strong>
+                </div>
+
+                <div class="membership-track">
+                    <div id="barSafe"></div>
+                </div>
+            </div>
+            <div class="membership">
+                <div>
+                    <span>Siaga</span>
+                    <strong id="membershipAlert">0%</strong>
+                </div>
+                <div class="membership-track">
+                    <div id="barAlert"></div>
+                </div>
+            </div>
+            <div class="membership">
+                <div>
+                    <span>Bahaya</span>
+                    <strong id="membershipDanger">0%</strong>
+                </div>
+                <div class="membership-track">
+                    <div id="barDanger"></div>
+                </div>
+            </div>
+            <div class="fuzzy-note">
+                Hasil merupakan estimasi berbasis model fuzzy
+                dan ambang konfigurasi simulasi.
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ALERT SYSTEM -->
+    <section class="section-heading" id="alerts">
+        <div>
+            <h2>Early Warning System</h2>
+            <p>Informasi perubahan kondisi parameter pemantauan</p>
+        </div>
+    </section>
+
+
+    <section class="alert-card">
+        <div class="alert-header">
+            <h3>Notifikasi Sistem</h3>
+            <span id="alertCount">0 NOTIFIKASI</span>
+        </div>
+        <div id="alertList" class="alert-list">
+            <div class="empty-alert">
+                ✓ Belum terdapat notifikasi peringatan.
+            </div>
+        </div>
+    </section>
+
+
+    <!-- HISTORY -->
+    <section class="section-heading history-heading" id="history">
+        <div>
+            <h2>Data Monitoring History</h2>
+            <p>Rekaman data pengukuran terakhir</p>
+        </div>
+        <button class="export-btn" onclick="exportCSV()">
+            ↓ Export CSV
+        </button>
+    </section>
+
+
+    <section class="table-card">
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>WAKTU</th>
+                        <th>H₂S (ppm)</th>
+                        <th>SO₂ (ppm)</th>
+                        <th>CO₂ (ppm)</th>
+                        <th>TEMP (°C)</th>
+                        <th>STATUS SENSOR</th>
+                        <th>FUZZY</th>
+                    </tr>
+                </thead>
+                <tbody id="historyTable">
+                    <tr>
+                        <td colspan="7">Menunggu data monitoring...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+        <strong>SEMERU</strong> — Sistem Elektronik Monitoring
+        Erupsi Berbasis IoT Multigas
+        <br>
+        <small>
+            Prototype Dashboard | Simulation Data Only
+        </small>
+    </footer>
+</main>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
